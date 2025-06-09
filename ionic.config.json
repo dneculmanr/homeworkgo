@@ -1,0 +1,7 @@
+{
+  "name": "homeworkgo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
