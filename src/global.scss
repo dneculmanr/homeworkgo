@@ -1,0 +1,46 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.stat-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority-indicator {
+  width: 4px;
+  height: 40px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.priority-high { background-color: var(--ion-color-danger); }
+.priority-medium { background-color: var(--ion-color-warning); }
+.priority-low { background-color: var(--ion-color-success); }
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.task-completed {
+  opacity: 0.6;
+}
+
+.task-overdue {
+  border-left: 4px solid var(--ion-color-danger);
+}
+
+.completed-text {
+  text-decoration: line-through;
+}
+
+.form-buttons {
+  padding: 16px;
+}

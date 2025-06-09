@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Nueva Tarea</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="saveTask()" #taskForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Título *</ion-label>
+        <ion-input 
+          [(ngModel)]="task.title" 
+          name="title" 
+          required 
+          placeholder="Ej: Resolver ejercicios de matemáticas">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea 
+          [(ngModel)]="task.description" 
+          name="description" 
+          placeholder="Detalles adicionales...">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Materia *</ion-label>
+        <ion-select 
+          [(ngModel)]="task.subject" 
+          name="subject" 
+          required 
+          placeholder="Selecciona una materia">
+          <ion-select-option *ngFor="let subject of subjects" [value]="subject">
+            {{ subject }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha de Vencimiento *</ion-label>
+        <ion-datetime 
+          [(ngModel)]="task.dueDate" 
+          name="dueDate" 
+          required 
+          presentation="date">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Prioridad</ion-label>
+        <ion-select [(ngModel)]="task.priority" name="priority">
+          <ion-select-option value="low">Baja</ion-select-option>
+          <ion-select-option value="medium">Media</ion-select-option>
+          <ion-select-option value="high">Alta</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <div class="form-buttons">
+      <ion-button expand="block" type="submit" [disabled]="!taskForm.form.valid">
+        <ion-icon name="save" slot="start"></ion-icon>
+        Guardar Tarea
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

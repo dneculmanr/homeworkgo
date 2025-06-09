@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mis Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Barra de búsqueda y filtros -->
+  <ion-searchbar 
+    [(ngModel)]="searchTerm" 
+    placeholder="Buscar tareas..."
+    (ionInput)="filterTasks()">
+  </ion-searchbar>
+
+  <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterTasks()">
+    <ion-segment-button value="all">
+      <ion-label>Todas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      <ion-label>Pendientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="completed">
+      <ion-label>Completadas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Lista de tareas -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let task of filteredTasks">
+      <ion-item [ngClass]="{'task-completed': task.completed, 'task-overdue': isOverdue(task.dueDate)}">
+        <ion-checkbox 
+          slot="start" 
+          [(ngModel)]="task.completed" 
+          (ionChange)="toggleTask(task.id)">
+        </ion-checkbox>
+        
+        <ion-label>
+          <h2 [ngClass]="{'completed-text': task.completed}">{{ task.title }}</h2>
+          <p>{{ task.description }}</p>
+          <p>{{ task.subject }} - {{ formatDate(task.dueDate) }}</p>
+        </ion-label>
+        
+        <div slot="end" class="priority-badge" [ngClass]="'priority-' + task.priority">
+          {{ getPriorityLabel(task.priority) }}
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteTask(task.id)">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToAddTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>HomeworkGo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Dashboard</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Estadísticas -->
+  <div class="stats-grid">
+    <ion-card *ngFor="let stat of stats" [color]="stat.color">
+      <ion-card-content>
+        <div class="stat-content">
+          <div>
+            <ion-text color="medium">{{ stat.title }}</ion-text>
+            <h2>{{ stat.value }}</h2>
+          </div>
+          <ion-icon [name]="stat.icon" size="large"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Próximas Tareas -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Próximas Tareas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let task of recentTasks" lines="none">
+        <div slot="start" class="priority-indicator" [ngClass]="'priority-' + task.priority"></div>
+        <ion-label>
+          <h3>{{ task.title }}</h3>
+          <p>{{ task.subject }}</p>
+          <p>{{ formatDate(task.dueDate) }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Próximos Exámenes -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Próximos Exámenes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let exam of upcomingExams" lines="none">
+        <ion-label>
+          <h3>{{ exam.title }}</h3>
+          <p>{{ exam.subject }}</p>
+          <p>{{ formatDate(exam.date) }} - {{ formatTime(exam.time) }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- FAB para agregar tarea -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToAddTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
